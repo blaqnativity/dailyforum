@@ -53,11 +53,9 @@ const App = () => {
   ]);
   const [newPost, setNewPost] = useState({
     title: "",
-    content: "",
     author: "",
-    date: "",
+    content: "",
     image: "",
-    readTime: "",
   });
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
