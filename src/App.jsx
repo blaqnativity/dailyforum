@@ -68,13 +68,24 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
+  // search feature
+  useEffect(() => {
+    const filteredResults = posts.filter(
+      (post) =>
+        post.content.toLowerCase().includes(search.toLowerCase()) ||
+        post.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setSearchResults(filteredResults.reverse());
+  }, [posts, search]);
+
   // new post submit function
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
-    const datetime = format(new Date(), "MMMM dd, yyyy p"); // ✅ FIX: correct format
+    const datetime = format(new Date(), "MMMM dd, yyyy p");
 
+    // replace all fields with the newly provided data
     const newPostObject = {
       id,
       title: newPost.title,
@@ -85,7 +96,7 @@ const App = () => {
       image: newPost.image,
     };
 
-    const updatedPosts = [...posts, newPostObject]; // ✅ FIX: spread correctly
+    const updatedPosts = [...posts, newPostObject];
     setPosts(updatedPosts);
 
     // Reset form
@@ -98,8 +109,8 @@ const App = () => {
       image:
         "https://i.pinimg.com/474x/66/fe/74/66fe74a7154a05976dcedfb51214e805.jpg",
     });
-
-    navigate("/"); // ✅ Redirect to home after post is added
+    // ✅ Redirect to home after post is added
+    navigate("/");
   };
 
   const handleDelete = (id) => {
@@ -112,7 +123,7 @@ const App = () => {
     <>
       <Navbar search={search} setSearch={setSearch} />
       <Routes>
-        <Route path="/" element={<Home posts={posts} />} />
+        <Route path="/" element={<Home posts={searchResults} />} />
         <Route path="*" element={<Missing />} />
         <Route
           path="/add-post"
