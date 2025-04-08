@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 
-const SinglePost = ({ posts, handleDelete }) => {
+const SinglePost = ({ posts, handleDelete, navigate }) => {
   const { id } = useParams();
   const post = posts.find((post) => post.id.toString() === id);
 
@@ -13,6 +13,17 @@ const SinglePost = ({ posts, handleDelete }) => {
               <div class="py-8">
                 <h1 class="text-3xl font-bold mb-2">{post.title}</h1>
                 <p class="text-gray-500 text-sm">{post.date}</p>
+              </div>
+
+              <div>
+                <button
+                  className="font-bold underline mb-5 cursor-pointer"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Go Back
+                </button>
               </div>
 
               <img
@@ -28,6 +39,7 @@ const SinglePost = ({ posts, handleDelete }) => {
               </div>
               <button
                 className="bg-red-600 text-white px-5 py-2 rounded-full mt-5 font-semibold cursor-pointer hover:bg-red-500 transition-smooth"
+                // disabled
                 type="submit"
                 onClick={() => handleDelete(post.id)}
               >
@@ -42,7 +54,7 @@ const SinglePost = ({ posts, handleDelete }) => {
         <>
           <div className="max-w-5xl text-center mx-auto my-20 flex flex-col gap-5">
             <h2 className="text-3xl md:text-5xl font-bold text-red-500">
-              Post Not found!!
+              sorry post does not exist or has been deleted!!
             </h2>
             <p className="underline italic text-gray-500 font-semibold text-md">
               <Link to="/">Go Back To Homepage</Link>

@@ -22,7 +22,7 @@ const Post = ({ post }) => {
         </p>
 
         <div class="flex items-center justify-between text-sm">
-          <button class="text-gray-500 ">2 min read</button>
+          <button class="text-gray-500 ">{post.duration} min read</button>
 
           <Link
             to={`/post/${post.id}`}

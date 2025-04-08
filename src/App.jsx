@@ -7,6 +7,7 @@ import SinglePost from "./pages/SinglePost";
 import NewPost from "./pages/NewPost";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 const App = () => {
   const [posts, setPosts] = useState([
@@ -19,6 +20,7 @@ const App = () => {
       date: "April 7, 2025 at 10:30 AM",
       image:
         "https://i.pinimg.com/736x/74/3f/ad/743fadb48e98f14b818d6f04d42b96f6.jpg",
+      duration: 2,
     },
     {
       id: 2,
@@ -29,6 +31,7 @@ const App = () => {
       date: "April 6, 2025 at 3:45 PM",
       image:
         "https://i.pinimg.com/736x/74/3f/ad/743fadb48e98f14b818d6f04d42b96f6.jpg",
+      duration: 1,
     },
     {
       id: 3,
@@ -39,6 +42,7 @@ const App = () => {
       date: "April 5, 2025 at 9:00 AM",
       image:
         "https://i.pinimg.com/736x/12/2e/90/122e903ccf9efea79561d84f4f9549c6.jpg",
+      duration: 2,
     },
     {
       id: 4,
@@ -49,29 +53,61 @@ const App = () => {
       date: "April 4, 2025 at 6:20 PM",
       image:
         "https://i.pinimg.com/474x/66/fe/74/66fe74a7154a05976dcedfb51214e805.jpg",
+      duration: 5,
     },
   ]);
   const [newPost, setNewPost] = useState({
     title: "",
     author: "",
     content: "",
-    image: "",
+    duration: 3,
+    image:
+      "https://i.pinimg.com/474x/66/fe/74/66fe74a7154a05976dcedfb51214e805.jpg",
   });
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
   const navigate = useNavigate();
 
+  // new post submit function
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Form submitted ${newPost.title}`);
+
+    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+    const datetime = format(new Date(), "MMMM dd, yyyy p"); // ✅ FIX: correct format
+
+    const newPostObject = {
+      id,
+      title: newPost.title,
+      author: newPost.author,
+      content: newPost.content,
+      date: datetime,
+      duration: newPost.duration,
+      image: newPost.image,
+    };
+
+    const updatedPosts = [...posts, newPostObject]; // ✅ FIX: spread correctly
+    setPosts(updatedPosts);
+
+    // Reset form
+    setNewPost({
+      title: "",
+      author: "",
+      content: "",
+      date: "",
+      duration: 3,
+      image:
+        "https://i.pinimg.com/474x/66/fe/74/66fe74a7154a05976dcedfb51214e805.jpg",
+    });
+
+    navigate("/"); // ✅ Redirect to home after post is added
   };
 
   const handleDelete = (id) => {
     const postList = posts.filter((post) => post.id !== id);
     setPosts(postList);
-    navigate.push("/");
+    navigate("/");
   };
+
   return (
     <>
       <Navbar search={search} setSearch={setSearch} />
@@ -90,7 +126,13 @@ const App = () => {
         />
         <Route
           path="/post/:id"
-          element={<SinglePost posts={posts} handleDelete={handleDelete} />}
+          element={
+            <SinglePost
+              posts={posts}
+              handleDelete={handleDelete}
+              navigate={navigate}
+            />
+          }
         />
       </Routes>
       <Footer />

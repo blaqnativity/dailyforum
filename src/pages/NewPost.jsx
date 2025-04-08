@@ -8,6 +8,26 @@ const NewPost = ({ handleSubmit, newPost, setNewPost }) => {
         <form onSubmit={handleSubmit}>
           <div class="mb-4">
             <label for="name" class="block text-gray-700 font-medium mb-2">
+              Image <br />{" "}
+              <span className="text-[10px] text-gray-400 font-semibold">
+                Clear out the field to add your own source link
+              </span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter only image url here"
+              id="image"
+              class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
+              name="image"
+              value={newPost.image}
+              onChange={(e) =>
+                setNewPost({ ...newPost, [e.target.name]: e.target.value })
+              }
+            />
+          </div>
+
+          <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-medium mb-2">
               Title
             </label>
             <input
@@ -19,8 +39,10 @@ const NewPost = ({ handleSubmit, newPost, setNewPost }) => {
               onChange={(e) =>
                 setNewPost({ ...newPost, [e.target.name]: e.target.value })
               }
+              required
             />
           </div>
+
           <div class="mb-4">
             <label for="name" class="block text-gray-700 font-medium mb-2">
               Author
@@ -34,18 +56,20 @@ const NewPost = ({ handleSubmit, newPost, setNewPost }) => {
               onChange={(e) =>
                 setNewPost({ ...newPost, [e.target.name]: e.target.value })
               }
+              required
             />
           </div>
+
           <div class="mb-4">
             <label for="name" class="block text-gray-700 font-medium mb-2">
-              Date & Time
+              Duration
             </label>
             <input
-              type="date"
-              id="date"
+              type="number"
+              id="duration"
               class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
-              name="date"
-              value={newPost.date}
+              name="duration"
+              value={newPost.duration}
               onChange={(e) =>
                 setNewPost({ ...newPost, [e.target.name]: e.target.value })
               }
@@ -65,6 +89,7 @@ const NewPost = ({ handleSubmit, newPost, setNewPost }) => {
               onChange={(e) =>
                 setNewPost({ ...newPost, [e.target.name]: e.target.value })
               }
+              required
             ></textarea>
           </div>
           <div>
