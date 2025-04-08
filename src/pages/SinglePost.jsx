@@ -34,8 +34,6 @@ const SinglePost = ({ posts, handleDelete, navigate }) => {
 
               <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
                 <p>{post.content}</p>
-                <p>{post.content}</p>
-                <p>{post.content}</p>
               </div>
               <button
                 className="bg-red-600 text-white px-5 py-2 rounded-full mt-5 font-semibold cursor-pointer hover:bg-red-500 transition-smooth"
