@@ -39,7 +39,7 @@ const SinglePost = ({ posts, handleDelete, navigate }) => {
               </div>
               <button
                 className="bg-red-600 text-white px-5 py-2 rounded-full mt-5 font-semibold cursor-pointer hover:bg-red-500 transition-smooth"
-                // disabled
+                disabled
                 type="submit"
                 onClick={() => handleDelete(post.id)}
               >
